@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080818;
+  --foreground: #e2e8f0;
 }
 
 @theme inline {
@@ -12,15 +12,225 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ── Landing bounce ── */
+@keyframes land {
+  0%   { transform: scaleY(1) scaleX(1); }
+  20%  { transform: scaleY(0.72) scaleX(1.28); }
+  45%  { transform: scaleY(1.12) scaleX(0.92); }
+  65%  { transform: scaleY(0.95) scaleX(1.05); }
+  80%  { transform: scaleY(1.03) scaleX(0.98); }
+  100% { transform: scaleY(1) scaleX(1); }
+}
+.animate-land {
+  animation: land 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  transform-origin: bottom center;
+}
+
+/* ── Clear: red — explosion burst ── */
+@keyframes clear-red {
+  0%   { transform: scale(1);    opacity: 1;    filter: brightness(1); }
+  30%  { transform: scale(1.5);  opacity: 1;    filter: brightness(3) saturate(2); }
+  60%  { transform: scale(1.8);  opacity: 0.5;  filter: brightness(4) hue-rotate(30deg); }
+  100% { transform: scale(2.4);  opacity: 0;    filter: brightness(5); }
+}
+.animate-clear-red {
+  animation: clear-red 0.7s ease-out forwards;
+}
+
+/* ── Clear: blue — ripple dissolve ── */
+@keyframes clear-blue {
+  0%   { transform: scale(1) rotate(0deg);   opacity: 1;   filter: brightness(1); }
+  25%  { transform: scale(1.3) rotate(15deg); opacity: 0.9; filter: brightness(2) hue-rotate(-20deg); }
+  60%  { transform: scale(0.5) rotate(40deg); opacity: 0.5; filter: brightness(3) blur(2px); }
+  100% { transform: scale(0) rotate(90deg);   opacity: 0;   filter: blur(8px); }
+}
+.animate-clear-blue {
+  animation: clear-blue 0.7s ease-in-out forwards;
+}
+
+/* ── Clear: green — shatter spin ── */
+@keyframes clear-green {
+  0%   { transform: scale(1) rotate(0deg);    opacity: 1; filter: brightness(1); }
+  20%  { transform: scale(1.2) rotate(-20deg); opacity: 1; filter: brightness(2) saturate(3); }
+  50%  { transform: scale(1.6) rotate(60deg);  opacity: 0.7; filter: brightness(3); }
+  100% { transform: scale(0.1) rotate(180deg); opacity: 0; filter: brightness(5) blur(4px); }
+}
+.animate-clear-green {
+  animation: clear-green 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ── Clear: yellow — flash pulse ── */
+@keyframes clear-yellow {
+  0%   { transform: scale(1);    opacity: 1;   filter: brightness(1); }
+  15%  { transform: scale(1.6);  opacity: 1;   filter: brightness(5) saturate(2); }
+  35%  { transform: scale(1.2);  opacity: 0.9; filter: brightness(3); }
+  55%  { transform: scale(1.8);  opacity: 0.5; filter: brightness(6) blur(1px); }
+  80%  { transform: scale(2.2);  opacity: 0.2; filter: brightness(8) blur(3px); }
+  100% { transform: scale(2.5);  opacity: 0;   filter: blur(6px); }
+}
+.animate-clear-yellow {
+  animation: clear-yellow 0.7s ease-out forwards;
+}
+
+/* ── Clear: purple — implode vortex ── */
+@keyframes clear-purple {
+  0%   { transform: scale(1) rotate(0deg);     opacity: 1;   filter: brightness(1); }
+  30%  { transform: scale(1.4) rotate(-30deg); opacity: 0.9; filter: brightness(2) hue-rotate(60deg); }
+  60%  { transform: scale(0.6) rotate(-90deg); opacity: 0.6; filter: brightness(4) hue-rotate(120deg); }
+  100% { transform: scale(0) rotate(-180deg);  opacity: 0;   filter: brightness(8) blur(6px); }
+}
+.animate-clear-purple {
+  animation: clear-purple 0.7s ease-in forwards;
+}
+
+/* ── Title pulse ── */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* ── Eyes: red — 素早い二連まばたき（怒り） ── */
+@keyframes eyes-red {
+  0%, 78%   { transform: scaleY(1); }
+  81%       { transform: scaleY(0.1); }
+  84%       { transform: scaleY(1); }
+  87%       { transform: scaleY(0.1); }
+  90%, 100% { transform: scaleY(1); }
+}
+.animate-eyes-red {
+  animation: eyes-red 2.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── Eyes: blue — ゆっくり重いまばたき（眠そう） ── */
+@keyframes eyes-blue {
+  0%, 50%   { transform: scaleY(1); }
+  68%       { transform: scaleY(0.08); }
+  86%, 100% { transform: scaleY(1); }
+}
+.animate-eyes-blue {
+  animation: eyes-blue 3.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── Eyes: green — 瞳がきょろきょろ（元気） ── */
+@keyframes eyes-green {
+  0%, 10%   { transform: translate(0, 0); }
+  18%       { transform: translate(3px, 0); }
+  30%       { transform: translate(-3px, 0); }
+  40%       { transform: translate(0, 2px); }
+  52%, 100% { transform: translate(0, 0); }
+}
+.animate-eyes-green {
+  animation: eyes-green 1.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── Eyes: yellow — 見開きバウンス（びっくり） ── */
+@keyframes eyes-yellow {
+  0%, 60%   { transform: scale(1); }
+  67%       { transform: scale(1.6); }
+  74%       { transform: scale(0.8); }
+  80%       { transform: scale(1.3); }
+  87%, 100% { transform: scale(1); }
+}
+.animate-eyes-yellow {
+  animation: eyes-yellow 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── Eyes: purple — 瞳が円運動（催眠） ── */
+@keyframes eyes-purple {
+  0%   { transform: translate(0, -3px); }
+  25%  { transform: translate(3px, 0); }
+  50%  { transform: translate(0, 3px); }
+  75%  { transform: translate(-3px, 0); }
+  100% { transform: translate(0, -3px); }
+}
+.animate-eyes-purple {
+  animation: eyes-purple 1.5s linear infinite;
+  transform-origin: center;
+}
+
+/* ── Eyes: ojama — 常に半目（怒り）たまに完全に閉じる ── */
+@keyframes eyes-ojama {
+  0%, 38%   { transform: scaleY(0.32); }
+  42%       { transform: scaleY(0.04); }
+  46%, 100% { transform: scaleY(0.32); }
+}
+.animate-eyes-ojama {
+  animation: eyes-ojama 2.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── Eyes: bomb — ぴくぴく痙攣（不安定） ── */
+@keyframes eyes-bomb {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  8%       { transform: translate(2px, -1px) scale(1.15); }
+  16%      { transform: translate(-2px, 1px) scale(0.88); }
+  24%      { transform: translate(1px, 2px) scale(1.2); }
+  32%      { transform: translate(-1px, -2px) scale(0.85); }
+  40%      { transform: translate(0, 0) scale(1); }
+  52%      { transform: translate(3px, 0) scale(1.1); }
+  60%      { transform: translate(-2px, 1px) scale(1); }
+  68%      { transform: translate(1px, -1px) scale(0.92); }
+  76%      { transform: translate(-1px, 0) scale(1.08); }
+  84%      { transform: translate(0, 0) scale(1); }
+}
+.animate-eyes-bomb {
+  animation: eyes-bomb 1s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── Clear: ojama — グレー消滅 ── */
+@keyframes clear-ojama {
+  0%   { transform: scale(1); opacity: 1; filter: grayscale(0) brightness(1); }
+  25%  { transform: scale(1.12); opacity: 0.9; filter: grayscale(1) brightness(2.5); }
+  60%  { transform: scale(0.75); opacity: 0.5; filter: grayscale(1) brightness(0.5) blur(1px); }
+  100% { transform: scale(0.05); opacity: 0; filter: grayscale(1) blur(4px); }
+}
+.animate-clear-ojama {
+  animation: clear-ojama 0.7s ease-in forwards;
+}
+
+/* ── Clear: bomb — 大爆発 ── */
+@keyframes clear-bomb {
+  0%   { transform: scale(1); opacity: 1; filter: brightness(1); }
+  8%   { transform: scale(2.4); opacity: 1; filter: brightness(12) saturate(3); }
+  22%  { transform: scale(4); opacity: 0.9; filter: brightness(8) saturate(2) hue-rotate(20deg); }
+  55%  { transform: scale(5.5); opacity: 0.4; filter: brightness(5) blur(4px); }
+  100% { transform: scale(7); opacity: 0; filter: blur(14px); }
+}
+.animate-clear-bomb {
+  animation: clear-bomb 0.7s ease-out forwards;
+}
+
+/* ── Blast: 爆風で吹き飛ぶ ── */
+@keyframes blast {
+  0%   { transform: scale(1); opacity: 1; filter: brightness(1); }
+  8%   { transform: scale(1.45); opacity: 1; filter: brightness(7) saturate(0.3); }
+  25%  { transform: scale(1.1); opacity: 0.85; filter: brightness(3); }
+  60%  { transform: scale(0.85); opacity: 0.5; filter: brightness(2) blur(1px); }
+  100% { transform: scale(0.15); opacity: 0; filter: blur(6px); }
+}
+.animate-blast {
+  animation: blast 0.7s ease-out forwards;
+}
+
+/* ── Bomb: 脈動グロー ── */
+@keyframes bomb-glow {
+  0%, 100% { box-shadow: 0 0 10px 3px rgba(251,146,60,0.5); }
+  50%       { box-shadow: 0 0 28px 10px rgba(251,146,60,0.9); }
+}
+.animate-bomb-glow {
+  animation: bomb-glow 0.55s ease-in-out infinite;
 }
